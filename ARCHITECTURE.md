@@ -1,173 +1,300 @@
-# 🌳 Architektur — atc-aistudio
+# ARCHITECTURE.md — atc-aistudio
+> Copyright © Michael Wroblewski / A-TownChain-Okosystems. All Rights Reserved.
 
-> **Stand:** 2026-08-06 | **Commit:** 12cbb33
-> **Teil von:** [A-TownChain Ökosystem](https://github.com/A-TownChain-Okosystems)
-
-## Statistik
-
-| Metrik | Wert |
-|--------|------|
-| Dateien | 262 |
-| Zeilen | 72,042 |
-| .atc | 36 |
-| .py | 0 |
-| .rs | 0 |
-| .ts/.tsx | 177 |
-| .md | 8 |
-
-## Verzeichnisstruktur
-
-```
-├── assets/ (1 files, 0 lines)
-│   └── .aistudio/ (1 files, 0 lines)
-│       └── .gitignore
-├── src/ (169 files, 49,003 lines)
-│   ├── backend/ (1 files, 77 lines)
-│   │   └── p2p/ (1 files, 77 lines)
-│   │       └── network.ts (77 lines)
-│   ├── components/ (128 files, 36,019 lines)
-│   │   ├── ATCAssetView.tsx (191 lines)
-│   │   ├── ATCDjStudioView.tsx (445 lines)
-│   │   ├── ATCLangEditor.tsx (625 lines)
-│   │   ├── ATCWalletView.tsx (498 lines)
-│   │   ├── ATownOSNode.tsx (1439 lines)
-│   │   ├── ATownTestView.tsx (111 lines)
-│   │   ├── AgentCivilizationView.tsx (152 lines)
-│   │   ├── Ai3DRenderEngineTab.tsx (199 lines)
-│   │   ├── AiAnimationEngineTab.tsx (198 lines)
-│   │   ├── AiAudioEngineTab.tsx (198 lines)
-│   │   ├── AiCharacterBioTab.tsx (199 lines)
-│   │   ├── AiGameEngineTab.tsx (200 lines)
-│   │   ├── AiKernelView.tsx (128 lines)
-│   │   ├── AiOsEngineView.tsx (490 lines)
-│   │   ├── AiSoftwareWorkflowView.tsx (229 lines)
-│   │   ├── AiTimelineEngineTab.tsx (199 lines)
-│   │   ├── AntiCheatView.tsx (261 lines)
-│   │   ├── ApiHealthWidget.tsx (85 lines)
-│   │   ├── ApiInterfacesView.tsx (189 lines)
-│   │   ├── ApiOrchestratorView.tsx (354 lines)
-│   │   ├── AppGlobeView.tsx (233 lines)
-│   │   ├── ArchitectureDependencyGraph.tsx (248 lines)
-│   │   ├── ArchitectureView.tsx (888 lines)
-│   │   ├── AssetVaultView.tsx (187 lines)
-│   │   ├── AtcAssetsDbView.tsx (250 lines)
-│   │   ├── AtcCoreKernelView.tsx (144 lines)
-│   │   ├── AtcLangArchitectureView.tsx (585 lines)
-│   │   ├── AtcLangPlaygroundView.tsx (256 lines)
-│   │   ├── AtcLangPresetsView.tsx (64 lines)
-│   │   ├── AtvmSandboxView.test.tsx (85 lines)
-│   │   ├── AtvmSandboxView.tsx (499 lines)
-│   │   ├── BatteryStatus.tsx (269 lines)
-│   │   ├── BattleArenaView.tsx (143 lines)
-│   │   ├── BenchmarkCenterView.tsx (288 lines)
-│   │   ├── CalculatorView.tsx (74 lines)
-│   │   ├── CalendarView.tsx (78 lines)
-│   │   ├── ClockView.tsx (72 lines)
-│   │   ├── CodeAnalyzerView.tsx (90 lines)
-│   │   ├── CommitHeatmap.tsx (110 lines)
-│   │   └── ComplianceEngineView.tsx (84 lines)
-│   ├── contexts/ (4 files, 269 lines)
-│   │   ├── FirebaseContext.tsx (94 lines)
-│   │   ├── GoogleWorkspaceContext.tsx (83 lines)
-│   │   ├── SyncMetricsContext.tsx (47 lines)
-│   │   └── WalletContext.tsx (45 lines)
-│   ├── db/ (3 files, 64 lines)
-│   │   ├── drizzle.config.ts (29 lines)
-│   │   ├── index.ts (24 lines)
-│   │   └── schema.ts (11 lines)
-│   ├── hooks/ (2 files, 250 lines)
-│   │   ├── useGoogleSheetsSync.ts (220 lines)
-│   │   └── useKeyboardShortcut.ts (30 lines)
-│   ├── lib/ (6 files, 359 lines)
-│   │   ├── CryptoEngine.ts (42 lines)
-│   │   ├── firebase-admin.ts (15 lines)
-│   │   ├── firebase.ts (64 lines)
-│   │   ├── indexedDb.ts (88 lines)
-│   │   ├── syncLogic.test.ts (82 lines)
-│   │   └── syncLogic.ts (68 lines)
-│   ├── middleware/ (1 files, 30 lines)
-│   │   └── auth.ts (30 lines)
-│   ├── routes/ (1 files, 146 lines)
-│   │   └── notion.ts (146 lines)
-│   ├── services/ (2 files, 143 lines)
-│   │   ├── SyncService.ts (106 lines)
-│   │   └── githubSync.ts (37 lines)
-│   ├── utils/ (4 files, 240 lines)
-│   │   ├── appSync.tsx (84 lines)
-│   │   ├── auditUtils.test.ts (56 lines)
-│   │   ├── auditUtils.ts (27 lines)
-│   │   └── crypto.ts (73 lines)
-│   ├── App.tsx (5440 lines)
-│   ├── DesktopApp.tsx (2740 lines)
-│   ├── atcLangRoadmapData.ts (201 lines)
-│   ├── atcLangWikiData.ts (227 lines)
-│   ├── auditData.ts (76 lines)
-│   ├── data.ts (411 lines)
-│   ├── ecosystemData.ts (291 lines)
-│   ├── fix_translation.cjs
-│   ├── index.css
-│   ├── main.tsx (24 lines)
-│   ├── marketplaceApps.ts (273 lines)
-│   ├── requirementsData.ts (58 lines)
-│   ├── roadmapData.ts (312 lines)
-│   ├── standardsData.ts (83 lines)
-│   ├── tierData.ts (317 lines)
-│   ├── types.ts (10 lines)
-│   └── wikiData.ts (943 lines)
-├── tests/ (2 files, 127 lines)
-│   ├── GitHubRepoSyncView.test.tsx (49 lines)
-│   └── audit_compliance.test.ts (78 lines)
-├── workspace/ (7 files, 497 lines)
-│   ├── src/ (1 files, 268 lines)
-│   │   └── components/ (1 files, 268 lines)
-│   │       └── GovernanceView.tsx (268 lines)
-│   ├── move.js (13 lines)
-│   ├── rename.js (42 lines)
-│   ├── replace.js (40 lines)
-│   ├── replaceEnterprise.js (102 lines)
-│   ├── replaceGoals.ts (14 lines)
-│   └── replaceGoals2.ts (18 lines)
+## File Tree
+```tree
 ├── .env.example
 ├── .gitignore
-├── AGENTS.md (13 lines)
-├── CHANGELOG.md (21 lines)
-├── FILE_REGISTER.md (253 lines)
-├── GEMINI.md (6 lines)
+├── AGENTS.md
+├── CHANGELOG.md
+├── COMPONENT_PLAN.md
+├── FILE_REGISTER.md
+├── GEMINI.md
 ├── LICENSE
-├── README.md (20 lines)
-├── ROADMAP.md (598 lines)
-├── SOFTWARE_ROADMAP.md (1116 lines)
-├── STATUS.md (19 lines)
-├── aaa_asset_core.atc (97 lines)
-├── ai_assets.atc (143 lines)
-├── ai_studio_ad49.atc (310 lines)
-├── animation.atc (170 lines)
-├── asset_bundle.atc (121 lines)
-├── asset_genome_ad66.atc (171 lines)
-├── check_dups2.js (12 lines)
-├── check_dups_all.js (23 lines)
-├── check_dups_desktop.js (15 lines)
-├── check_dups_windows_map.js (14 lines)
-├── civilization_engine_ad60.atc (236 lines)
-├── cloud_assets.atc (161 lines)
-├── cross_franchise_ad46.atc (223 lines)
-├── data_lake_ad51.atc (237 lines)
-├── digital_twin_ad50.atc (303 lines)
-├── ecosystem_ai_mesh_ad62.atc (245 lines)
-├── encryption.atc (183 lines)
-├── evolution_engine_ad69.atc (251 lines)
-├── experience_orchestrator_ad68.atc (200 lines)
-├── federated_learning.atc (178 lines)
-├── fetch.js (36 lines)
-├── firebase-applet-config.json (9 lines)
-├── fix.js (26 lines)
-├── fix2.js (27 lines)
+├── README.md
+├── ROADMAP.md
+├── SOFTWARE_ROADMAP.md
+├── STATUS.md
+├── aaa_asset_core.atc
+├── ai_assets.atc
+├── ai_studio_ad49.atc
+├── animation.atc
+├── asset_bundle.atc
+├── asset_genome_ad66.atc
+├── assets/
+│   └── .aistudio/
+│       └── .gitignore
+├── check_dups2.js
+├── check_dups_all.js
+├── check_dups_desktop.js
+├── check_dups_windows_map.js
+├── civilization_engine_ad60.atc
+├── cloud_assets.atc
+├── cross_franchise_ad46.atc
+├── data_lake_ad51.atc
+├── digital_twin_ad50.atc
+├── ecosystem_ai_mesh_ad62.atc
+├── encryption.atc
+├── evolution_engine_ad69.atc
+├── experience_orchestrator_ad68.atc
+├── federated_learning.atc
+├── fetch.js
+├── firebase-applet-config.json
+├── fix.js
+├── fix2.js
 ├── fix_react_imports.cjs
 ├── fix_wiki.cjs
-├── fix_wiki.js (5 lines)
-├── gcp_core_ad70.atc (169 lines)
-└── global_simulation_core_ad64.atc (198 lines)
+├── fix_wiki.js
+├── gcp_core_ad70.atc
+├── global_simulation_core_ad64.atc
+├── hot_reload.atc
+├── identity_layer_ad65.atc
+├── index.html
+├── ip_evolution_ad45.atc
+├── knowledge_graph_ad47.atc
+├── mark_completed.ts
+├── mark_completed_src.ts
+├── memory_cleanup.atc
+├── metadata.json
+├── mod_system.atc
+├── model3d.atc
+├── move_back.js
+├── output.txt
+├── package-lock.json
+├── package.json
+├── persistent_world_engine_ad61.atc
+├── priority_loading.atc
+├── proc_universe_generator_ad63.atc
+├── production_pipeline_ad67.atc
+├── render_pipeline.atc
+├── replace.js
+├── replace_langs.cjs
+├── replace_langs_2.cjs
+├── replace_langs_3.cjs
+├── replace_langs_4.cjs
+├── replace_langs_5.cjs
+├── replace_langs_6.cjs
+├── script.cjs
+├── script.js
+├── script2.cjs
+├── server.ts
+├── shader_system.atc
+├── simulation_factory_ad48.atc
+├── src/
+│   ├── App.tsx
+│   ├── DesktopApp.tsx
+│   ├── atcLangRoadmapData.ts
+│   ├── atcLangWikiData.ts
+│   ├── auditData.ts
+│   ├── backend/
+│   │   └── p2p/
+│   │       └── network.ts
+│   ├── components/
+│   │   ├── ATCAssetView.tsx
+│   │   ├── ATCDjStudioView.tsx
+│   │   ├── ATCLangEditor.tsx
+│   │   ├── ATCWalletView.tsx
+│   │   ├── ATownOSNode.tsx
+│   │   ├── ATownTestView.tsx
+│   │   ├── AgentCivilizationView.tsx
+│   │   ├── Ai3DRenderEngineTab.tsx
+│   │   ├── AiAnimationEngineTab.tsx
+│   │   ├── AiAudioEngineTab.tsx
+│   │   ├── AiCharacterBioTab.tsx
+│   │   ├── AiGameEngineTab.tsx
+│   │   ├── AiKernelView.tsx
+│   │   ├── AiOsEngineView.tsx
+│   │   ├── AiSoftwareWorkflowView.tsx
+│   │   ├── AiTimelineEngineTab.tsx
+│   │   ├── AntiCheatView.tsx
+│   │   ├── ApiHealthWidget.tsx
+│   │   ├── ApiInterfacesView.tsx
+│   │   ├── ApiOrchestratorView.tsx
+│   │   ├── AppGlobeView.tsx
+│   │   ├── ArchitectureDependencyGraph.tsx
+│   │   ├── ArchitectureView.tsx
+│   │   ├── AssetVaultView.tsx
+│   │   ├── AtcAssetsDbView.tsx
+│   │   ├── AtcCoreKernelView.tsx
+│   │   ├── AtcLangArchitectureView.tsx
+│   │   ├── AtcLangPlaygroundView.tsx
+│   │   ├── AtcLangPresetsView.tsx
+│   │   ├── AtvmSandboxView.test.tsx
+│   │   ├── AtvmSandboxView.tsx
+│   │   ├── BatteryStatus.tsx
+│   │   ├── BattleArenaView.tsx
+│   │   ├── BenchmarkCenterView.tsx
+│   │   ├── CalculatorView.tsx
+│   │   ├── CalendarView.tsx
+│   │   ├── ClockView.tsx
+│   │   ├── CodeAnalyzerView.tsx
+│   │   ├── CommitHeatmap.tsx
+│   │   ├── ComplianceEngineView.tsx
+│   │   ├── ComplianceView.tsx
+│   │   ├── ConflictResolutionModal.tsx
+│   │   ├── CryptoVisualizationView.tsx
+│   │   ├── DataProcessingView.tsx
+│   │   ├── DbOrchestratorView.tsx
+│   │   ├── DependencyMapView.tsx
+│   │   ├── DevToolsView.tsx
+│   │   ├── DeveloperKnowledgeBaseView.tsx
+│   │   ├── DistributedDatalakeView.tsx
+│   │   ├── EcosystemInstaller.tsx
+│   │   ├── EcosystemTreeOverlay.tsx
+│   │   ├── EcosystemUmlView.tsx
+│   │   ├── EcosystemVisualizerView.tsx
+│   │   ├── FileManagerView.tsx
+│   │   ├── FolderView.tsx
+│   │   ├── GateToHellBrowser.tsx
+│   │   ├── GenesisBlockGeneratorView.tsx
+│   │   ├── GitGraphVisualization.tsx
+│   │   ├── GitHubRepoSyncView.tsx
+│   │   ├── GitOpsView.tsx
+│   │   ├── GovernanceView.tsx
+│   │   ├── GpuPerformanceWidget.tsx
+│   │   ├── IdeaToAppFlowchartView.tsx
+│   │   ├── ImageGeneratorTab.tsx
+│   │   ├── IntegrationsWindow.tsx
+│   │   ├── InterfacesView.tsx
+│   │   ├── JsExampleRunner.tsx
+│   │   ├── LazyMetricsCharts.tsx
+│   │   ├── LegalView.tsx
+│   │   ├── LoginOverlay.tsx
+│   │   ├── MainnetLaunchView.tsx
+│   │   ├── MarketplaceView.tsx
+│   │   ├── MediaApps.tsx
+│   │   ├── MetricsView.tsx
+│   │   ├── ModulesPluginView.tsx
+│   │   ├── NetworkExplorerView.test.tsx
+│   │   ├── NetworkExplorerView.tsx
+│   │   ├── NetworkTopologyView.tsx
+│   │   ├── NodeHealthMonitor.tsx
+│   │   ├── NotepadView.tsx
+│   │   ├── OfficeApps.tsx
+│   │   ├── P2PChatView.tsx
+│   │   ├── Paint3DView.tsx
+│   │   ├── PaymentSystemView.tsx
+│   │   ├── PipelineGeneratorTab.tsx
+│   │   ├── PoAITrainingEngineView.tsx
+│   │   ├── ProjectHubView.tsx
+│   │   ├── ProtocolsView.tsx
+│   │   ├── ReportsView.tsx
+│   │   ├── RepositoryActivityChart.tsx
+│   │   ├── RepositoryLineChart.tsx
+│   │   ├── RescueSystemView.tsx
+│   │   ├── RoadmapView.tsx
+│   │   ├── SemanticGraphView.tsx
+│   │   ├── SessionExportView.tsx
+│   │   ├── SettingsView.tsx
+│   │   ├── SocialMediaView.tsx
+│   │   ├── SoftwareAuditView.tsx
+│   │   ├── SoftwareKnowledgeDbView.tsx
+│   │   ├── SourceCodeViewer.tsx
+│   │   ├── SpecificSettingsViews.tsx
+│   │   ├── StorageManagerView.tsx
+│   │   ├── StrategicArchitectureMap.tsx
+│   │   ├── StructureView.tsx
+│   │   ├── SyncHistoryModal.tsx
+│   │   ├── SyncMetricsView.tsx
+│   │   ├── SyncStatusDonutChart.tsx
+│   │   ├── SyncStatusOverview.tsx
+│   │   ├── SystemDiagnosticsView.tsx
+│   │   ├── SystemFinderView.tsx
+│   │   ├── SystemLogsView.tsx
+│   │   ├── TaskManagerView.tsx
+│   │   ├── TechDocsView.tsx
+│   │   ├── TechTreeView.tsx
+│   │   ├── TestnetOrchestrationView.tsx
+│   │   ├── TestnetSimulationView.tsx
+│   │   ├── TextGeneratorTab.tsx
+│   │   ├── ThemeSwitcher.tsx
+│   │   ├── TodoView.tsx
+│   │   ├── TooltipIcon.tsx
+│   │   ├── TxOrchestratorView.tsx
+│   │   ├── UserProfileView.tsx
+│   │   ├── VideoGeneratorTab.tsx
+│   │   ├── WebhookMonitor.tsx
+│   │   ├── Window.tsx
+│   │   ├── WindowExtras.tsx
+│   │   ├── ZeroKnowledgeProofView.tsx
+│   │   └── ZkVisualizationView.tsx
+│   ├── contexts/
+│   │   ├── FirebaseContext.tsx
+│   │   ├── GoogleWorkspaceContext.tsx
+│   │   ├── SyncMetricsContext.tsx
+│   │   └── WalletContext.tsx
+│   ├── data.ts
+│   ├── db/
+│   │   ├── drizzle.config.ts
+│   │   ├── index.ts
+│   │   └── schema.ts
+│   ├── ecosystemData.ts
+│   ├── fix_translation.cjs
+│   ├── hooks/
+│   │   ├── useGoogleSheetsSync.ts
+│   │   └── useKeyboardShortcut.ts
+│   ├── index.css
+│   ├── lib/
+│   │   ├── CryptoEngine.ts
+│   │   ├── firebase-admin.ts
+│   │   ├── firebase.ts
+│   │   ├── indexedDb.ts
+│   │   ├── syncLogic.test.ts
+│   │   └── syncLogic.ts
+│   ├── main.tsx
+│   ├── marketplaceApps.ts
+│   ├── middleware/
+│   │   └── auth.ts
+│   ├── requirementsData.ts
+│   ├── roadmapData.ts
+│   ├── routes/
+│   │   └── notion.ts
+│   ├── services/
+│   │   ├── SyncService.ts
+│   │   └── githubSync.ts
+│   ├── standardsData.ts
+│   ├── tierData.ts
+│   ├── types.ts
+│   ├── utils/
+│   │   ├── appSync.tsx
+│   │   ├── auditUtils.test.ts
+│   │   ├── auditUtils.ts
+│   │   └── crypto.ts
+│   └── wikiData.ts
+├── streaming.atc
+├── telemetry.atc
+├── testChat.js
+├── test_know.js
+├── tests/
+│   ├── GitHubRepoSyncView.test.tsx
+│   └── audit_compliance.test.ts
+├── tmp.txt
+├── tsconfig.json
+├── universe_factory_ad44.atc
+├── update_wiki_categories.ts
+├── versioning.atc
+├── vite.config.ts
+└── workspace/
+    ├── move.js
+    ├── rename.js
+    ├── replace.js
+    ├── replaceEnterprise.js
+    ├── replaceGoals.ts
+    ├── replaceGoals2.ts
+    └── src/
+        └── components/
+            └── GovernanceView.tsx
 ```
 
----
-*Auto-generiert 2026-08-06 · Aurora (MasterBrain · Base44)*
+## Module Descriptions
+- **src/**: TypeScript application source containing AI model visual editor components, canvas workflows, node orchestration, and UI views.
+- **assets/**: 3D model assets, textures, animations, and sound effects for studio simulations.
+- **tests/**: Automated unit and integration test suites for AI workflow evaluation and pipeline validation.
+- **package.json** & **tsconfig.json**: Node package configuration, dependency specifications, and TypeScript strict compiler directives.
+- **.atc workflow modules**: Specialized AI engine assets (`civilization_engine`, `global_simulation`, `federated_learning`, `knowledge_graph`).
+
+## Build System
+Node.js / npm environment with Vite build tool and TypeScript compiler (`tsc`). Supports Hot Module Replacement (HMR) and automated TS build scripts.
+
+## Dependencies
+TypeScript 5.0+, React / Canvas UI frameworks, Three.js / WebGL render engines, Vitest / Jest, WebSocket / REST client libraries.
